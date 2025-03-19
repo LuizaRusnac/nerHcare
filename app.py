@@ -22,8 +22,20 @@ _, id_to_label = load_label_mappings(MODEL_DIR)
 def generate_random_color():
     return "#{:06x}".format(random.randint(0, 0xFFFFFF))
 
-# Create dynamic color mapping
-color_mapping = {label: generate_random_color() for label in id_to_label.values()}
+# Create dynamic color mapping with B- and I- labels sharing the same color
+color_mapping = {}
+for label in id_to_label.values():
+    # Extract the base label without B- or I-
+    base_label = label[2:] if label.startswith(("B-", "I-")) else label
+    if base_label not in color_mapping:
+        color_mapping[base_label] = generate_random_color()
+        
+# Update the mapping for B- and I- labels to share the same color
+color_mapping.update({
+    label: color_mapping[base_label]
+    for label in id_to_label.values() if label.startswith(("B-", "I-"))
+    for base_label in color_mapping if label[2:] == base_label
+})
 
 @app.get("/", response_class=HTMLResponse)
 async def index(request: Request):
@@ -40,19 +52,22 @@ async def process_text(request: Request, input_text: str = Form(...)):
     
     for word, label in zip(words, labels):
         if label != 'O':  # Not an "Other"
+            base_label = label[2:]  # Extract the base label
+            color_class = base_label  # Use the base label as class for color
+            
             if current_entity_label is None:  # New entity
-                current_entity_label = label
+                current_entity_label = color_class
                 current_entity_tokens.append(word)
             else:  # End of the current entity
                 highlighted_text += (
-                    f'<span class="{current_entity_label}">{"".join(current_entity_tokens)} <span class="tag">({current_entity_label[2:]})</span></span> '
+                    f'<span class="{current_entity_label}">{"".join(current_entity_tokens)} <span class="tag">({current_entity_label})</span></span> '
                 )
                 current_entity_tokens = [word]
-                current_entity_label = label
+                current_entity_label = color_class
         else:  # Label is "O"
             if current_entity_label is not None:
                 highlighted_text += (
-                    f'<span class="{current_entity_label}">{"".join(current_entity_tokens)} <span class="tag">({current_entity_label[2:]})</span></span> '
+                    f'<span class="{current_entity_label}">{"".join(current_entity_tokens)} <span class="tag">({current_entity_label})</span></span> '
                 )
                 current_entity_tokens = []
                 current_entity_label = None
@@ -61,7 +76,7 @@ async def process_text(request: Request, input_text: str = Form(...)):
     # Finalize any leftover entity tokens
     if current_entity_tokens:
         highlighted_text += (
-            f'<span class="{current_entity_label}">{"".join(current_entity_tokens)} <span class="tag">({current_entity_label[2:]})</span></span>'
+            f'<span class="{current_entity_label}">{"".join(current_entity_tokens)} <span class="tag">({current_entity_label})</span></span>'
         )
     
     return templates.TemplateResponse("index.html", {"request": request, "highlighted_text": highlighted_text, "color_mapping": color_mapping})
