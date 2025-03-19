@@ -1,60 +1,70 @@
 # nerHcare
 
-nerHcare is a natural language processing project designed to assist in healthcare-related tasks by extracting relevant information from text data using Named Entity Recognition (NER).
+**nerHcare** is a sophisticated Natural Language Processing (NLP) toolkit designed for the extraction and classification of medical entities from unstructured healthcare text data. By leveraging advanced Named Entity Recognition (NER) techniques, nerHcare aims to streamline information extraction for healthcare professionals and researchers.
 
 ## Table of Contents
-- [Introduction](#introduction)
 - [Features](#features)
 - [Installation](#installation)
+- [Model Download](#model-download)
 - [Usage](#usage)
+- [Documentation](#documentation)
 - [Contributing](#contributing)
 - [License](#license)
-
-## Introduction
-
-The goal of nerHcare is to support healthcare providers and researchers in extracting actionable insights from unstructured medical texts. It leverages advanced NER techniques to identify and classify various entities including diseases, medications, symptoms, and more.
+- [Contact](#contact)
 
 ## Features
 
-- Extracts and classifies entities from healthcare-related texts
-- Supports multiple languages
-- User-friendly interface for ease of use
-- Customizable models for specific healthcare domains
+- **Accurate Entity Recognition**: Efficiently identifies and classifies medical entities such as diseases, medications, symptoms, and more.
+- **Customizable Models**: Users can tailor models for specific healthcare domains, improving specificity and relevance.
+- **User-Friendly Interface**: Designed for ease of use, allowing practitioners and researchers to focus on insights rather than technical details.
+- **Comprehensive Data Output**: Generates structured output for easy integration with other data systems and analyses.
 
 ## Installation
 
-To get started with nerHcare, follow these steps to set up the environment:
+To install and set up nerHcare, follow these steps:
 
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/LuizaRusnac/nerHcare.git
-   ```
+1. **Clone the repository:**
+    ```bash
+    git clone https://github.com/LuizaRusnac/nerHcare.git
+    ```
 
-2. Navigate into the project directory:
-   ```bash
-   cd nerHcare
-   ```
+2. **Navigate to the project directory:**
+    ```bash
+    cd nerHcare
+    ```
 
-3. Install the required dependencies:
-   ```bash
-   pip install -r requirements.txt
-   ```
+3. **Install the required dependencies:**
+    ```bash
+    python -m venv env
+    .env\Scripts\activate
+    pip install -r requirements.txt
+    ```
+
+## Model Download
+
+Due to the large size of the model, it has been stored as a zip file in Google Drive. To download the model, follow these steps:
+
+1. Click on the following link to access the model: [Download Model](https://drive.google.com/file/d/1PfPlZS3O1i2UzMjQGgZnA_BBuU-_MiZj/view?usp=drive_link).
+2. Once downloaded, unzip the file in the directory within the nerHcare project folder.
+
+Ensure that the model files are correctly referenced in your configuration settings before running the application.
 
 ## Usage
 
-To use nerHcare, you can run the main Python script as follows:
+To run the nerHcare application using `uvicorn`, execute the following command in your terminal:
 
 ```bash
-python main.py
+uvicorn app:app --host 0.0.0.0 --port 8000 --reload
 ```
 
-Make sure to provide the necessary input files and parameters as specified in the documentation.
+Parameters
+app: The name of your ASGI application (replace with the appropriate entry point if different).
+--host: Specifies the host address (0.0.0.0 makes it accessible from any IP).
+--port: The port on which the application will run (default is 8000).
+--reload: Enables auto-reload for development for easier testing and debugging.
+Ensure that you have your input data correctly configured to interact with the API endpoints of the application.
 
-For detailed usage instructions, please refer to the [Wiki](https://github.com/LuizaRusnac/nerHcare/wiki) or the [Usage Documentation](./docs/usage.md).
-
-## Contributing
-
-We welcome contributions from the community! If you would like to contribute to nerHcare, please fork the repository and submit a pull request. Make sure to follow the [Contribution Guidelines](./CONTRIBUTING.md).
+Acces http://127.0.0.1:8000/ for the interface.
 
 ## License
 
