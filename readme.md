@@ -1,6 +1,3 @@
-Sure! Below is a sample `README.md` template for the project based on its repository name and a generic structure often used for repositories. You may need to customize it further based on the specific details and functionalities of your project.
-
-```markdown
 # nerHcare
 
 nerHcare is a natural language processing project designed to assist in healthcare-related tasks by extracting relevant information from text data using Named Entity Recognition (NER).
@@ -63,9 +60,3 @@ We welcome contributions from the community! If you would like to contribute to 
 
 nerHcare is licensed under the MIT License. See the [LICENSE](./LICENSE) file for more information.
 
-## Contact
-
-For further inquiries or support, feel free to reach out to the maintainer at [your-email@example.com].
-```
-
-Feel free to adjust any section to fit the specific details and features of your project as needed!
