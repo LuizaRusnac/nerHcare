@@ -2,11 +2,12 @@ import torch
 import numpy as np
 from transformers import Trainer
 from sklearn.metrics import precision_recall_fscore_support
-from model import NERModel
-from data_loader import load_data, create_label_mappings, preprocess_data, load_data_pkl, load_label_mappings
+from src.model import NERModel
+from src.data_loader import load_data_pkl, load_label_mappings
+from src.config import CFG
 
 # Configuration
-MODEL_DIR = "models\saved_ner_model_test"
+MODEL_DIR = CFG.MODEL_DIR
 
 def compute_metrics(predictions, labels):
     """

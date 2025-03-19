@@ -1,11 +1,10 @@
-import torch
-from transformers import Trainer, pipeline
+from transformers import pipeline
 from src.model import NERModel
 from src.data_loader import load_label_mappings
 from src.config import CFG
 
 # Configuration
-MODEL_DIR = "models/saved_ner_model"
+MODEL_DIR = CFG.MODEL_DIR
 
 def align_labels(results, id_to_label):
     words = []
@@ -22,15 +21,12 @@ def align_labels(results, id_to_label):
             words.append(word)
             labels.append(label)
 
-    # Pair the correctly reconstructed words with their labels
     return words, labels
 
 def predict(text, id_to_label):
     """
     Performs Named Entity Recognition (NER) inference on a given text.
     :param text: Input sentence for NER
-    :param model: Trained BERT-based NER model
-    :param tokenizer: Corresponding tokenizer
     :param id_to_label: Mapping of label indices to label names
     :return: List of tokens with their predicted entity labels
     """

@@ -23,6 +23,7 @@ def save_data_pkl(data, name='dataset.pkl'):
         pickle.dump(data, f)
 
 def load_data_pkl(name='dataset.pkl'):
+    # Load the dataset using pickle
     name = CFG.DATASET_DIR + '/' + name
     with open(name, 'rb') as f:
         data = pickle.load(f)
@@ -120,9 +121,6 @@ def verify_labels(tokenized_datasets, num_samples=1):
             label = id_to_label.get(label_id, "O")  # Default to "O" for -100
             print(f"{token:20} -> {label}")
         print("\n" + "-"*50 + "\n")
-
-# # Call the verification function
-# verify_labels(test_tokenized)
 
 # Main execution for loading and preprocessing data
 if __name__ == "__main__":

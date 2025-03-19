@@ -18,6 +18,7 @@ def train():
     label_to_id, id_to_label = create_label_mappings(train_data)
 
     #Save label mapping
+    print("Saving label mappings...")
     save_label_mappings(label_to_id, id_to_label, CFG.MODEL_DIR)
 
     # Preprocess data (tokenization + alignment)
@@ -25,9 +26,9 @@ def train():
     train_tokenized, test_tokenized = preprocess_data(train_data, test_data, label_to_id)
 
     # Create DataLoaders
-    print("Creating DataLoaders...")
-    train_dataloader = create_data_loader(train_tokenized, batch_size=CFG.BATCH_SIZE)
-    test_dataloader = create_data_loader(test_tokenized, batch_size=CFG.BATCH_SIZE)
+    # print("Creating DataLoaders...")
+    # train_dataloader = create_data_loader(train_tokenized, batch_size=CFG.BATCH_SIZE)
+    # test_dataloader = create_data_loader(test_tokenized, batch_size=CFG.BATCH_SIZE)
 
     # Initialize model
     print("Initializing model...")

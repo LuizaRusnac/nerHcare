@@ -33,6 +33,7 @@ class NERModel:
         Loads a trained model and tokenizer from a directory.
         :param model_directory: Path to the saved model
         :param device: Device to load the model onto
+        :param num_labels: The number of labels of the dataset
         :return: Loaded NERModel instance
         """
         device = device or ("cuda" if torch.cuda.is_available() else "cpu")
